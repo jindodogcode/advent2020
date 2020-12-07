@@ -1,10 +1,7 @@
 //! --- Day 2: Password Philosophy ---
 //! https://adventofcode.com/2020/day/2
 
-use std::{
-    error::Error,
-    io::{self, BufRead},
-};
+use std::error::Error;
 
 const INPUT: &str = include_str!("../input/day02.txt");
 
@@ -18,8 +15,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 fn part_one(input: &str) -> Result<i32, Box<dyn Error>> {
     let mut count = 0;
 
-    for line in io::Cursor::new(input).lines() {
-        let line = line?;
+    for line in input.lines() {
         let (min, max, p, pw) = parse_line(&line)?;
 
         let matches = pw.chars().filter(|&c| c == p).count();
@@ -33,8 +29,7 @@ fn part_one(input: &str) -> Result<i32, Box<dyn Error>> {
 
 fn part_two(input: &str) -> Result<i32, Box<dyn Error>> {
     let mut count = 0;
-    for line in io::Cursor::new(input).lines() {
-        let line = line?;
+    for line in input.lines() {
         let (n1, n2, p, pw) = parse_line(&line)?;
         let p1_match = pw.chars().nth(n1 - 1).unwrap() == p;
         let p2_match = pw.chars().nth(n2 - 1).unwrap() == p;

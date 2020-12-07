@@ -1,26 +1,21 @@
+//! --- Day 1: Report Repair ---
 //! https://adventofcode.com/2020/day/1
 
-use std::{
-    cmp::Ordering,
-    collections::HashSet,
-    io::{self, BufRead},
-};
-
-fn main() -> io::Result<()> {
-    println!("Part One result: {}", part_one(INPUT)?);
-    println!("Part Two result: {}", part_two(INPUT)?);
-
-    Ok(())
-}
+use std::{cmp::Ordering, collections::HashSet};
 
 const INPUT: &str = include_str!("../input/day01.txt");
 
-fn part_one(input: &str) -> io::Result<i32> {
+fn main() {
+    println!("Part One result: {}", part_one(INPUT));
+    println!("Part Two result: {}", part_two(INPUT));
+}
+
+fn part_one(input: &str) -> i32 {
     let target = 2020;
     let mut nums = HashSet::new();
 
-    for line in io::Cursor::new(input).lines() {
-        let num = line?.parse::<i32>().expect("Bad input: not a number");
+    for line in input.lines() {
+        let num = line.parse::<i32>().expect("Bad input: not a number");
         nums.insert(num);
     }
     let nums = nums; // No longer needs to be mutable
@@ -29,19 +24,19 @@ fn part_one(input: &str) -> io::Result<i32> {
         let rem = target - num;
 
         if let Some(v) = nums.get(&rem) {
-            return Ok(num * v);
+            return num * v;
         }
     }
 
     panic!("Input did not contain two values whose sum is {}", target);
 }
 
-fn part_two(input: &str) -> io::Result<i32> {
+fn part_two(input: &str) -> i32 {
     let target = 2020;
     let mut nums = Vec::new();
 
-    for line in io::Cursor::new(input).lines() {
-        let num = line?.parse::<i32>().expect("Bad input: not a number");
+    for line in input.lines() {
+        let num = line.parse::<i32>().expect("Bad input: not a number");
         nums.push(num);
     }
     nums.sort_unstable();
@@ -50,7 +45,7 @@ fn part_two(input: &str) -> io::Result<i32> {
         let res = sorted_two_sum(&nums[i + 1..], target, nums[i]);
 
         if let Some((x, y, z)) = res {
-            return Ok(x * y * z);
+            return x * y * z;
         }
     }
 
@@ -88,13 +83,13 @@ mod test {
 
     #[test]
     fn part_one_works() {
-        let result = part_one(INPUT).unwrap();
+        let result = part_one(INPUT);
         assert_eq!(514579, result);
     }
 
     #[test]
     fn part_two_works() {
-        let result = part_two(INPUT).unwrap();
+        let result = part_two(INPUT);
         assert_eq!(241861950, result);
     }
 }

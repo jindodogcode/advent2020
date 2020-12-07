@@ -1,10 +1,7 @@
 //! --- Day 3: Toboggan Trajectory ---
 //! https://adventofcode.com/2020/day/3
 
-use std::{
-    error::Error,
-    io::{self, BufRead},
-};
+use std::error::Error;
 
 const INPUT: &str = include_str!("../input/day03.txt");
 
@@ -17,16 +14,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 fn part_one(input: &str) -> Result<u64, Box<dyn Error>> {
     let width = input.lines().next().unwrap().chars().count();
-
-    // for line in io::Cursor::new(input).lines() {
-    //     let line = line?;
-    //     let pos = x % width;
-    //     if line.chars().nth(pos).unwrap() == '#' {
-    //         count += 1;
-    //     }
-
-    //     x += 3;
-    // }
 
     Ok(count_trees(input, 3, 1, width)?)
 }
@@ -51,8 +38,7 @@ fn count_trees(
 ) -> Result<u64, Box<dyn Error>> {
     let mut count = 0;
     let mut x = 0;
-    for line in io::Cursor::new(input).lines().step_by(y_step) {
-        let line = line?;
+    for line in input.lines().step_by(y_step) {
         let pos = x % width;
         if line.chars().nth(pos).unwrap() == '#' {
             count += 1;
