@@ -3,7 +3,7 @@
 
 use std::{cmp::Ordering, collections::HashSet};
 
-const INPUT: &str = include_str!("../input/day01.txt");
+const INPUT: &str = include_str!("../../inputs/day01.txt");
 
 fn main() {
     println!("Part One result: {}", part_one(INPUT));

@@ -3,7 +3,7 @@
 
 use std::fmt::Debug;
 
-const INPUT: &str = include_str!("../input/day04.txt");
+const INPUT: &str = include_str!("../../inputs/day04.txt");
 
 fn main() {
     println!("Part one: {}", validate::<PassportTypeOne>(INPUT));

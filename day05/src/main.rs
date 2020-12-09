@@ -3,7 +3,7 @@
 
 use std::collections::HashSet;
 
-const INPUT: &str = include_str!("../input/day05.txt");
+const INPUT: &str = include_str!("../../inputs/day05.txt");
 
 fn main() {
     println!("Part one: {}", part_one(INPUT));
@@ -106,10 +106,5 @@ BBFFBBFRLL";
     fn part_one_works() {
         let res = part_one(INPUT);
         assert_eq!(820, res);
-    }
-
-    #[test]
-    fn part_two_works() {
-        todo!()
     }
 }

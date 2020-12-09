@@ -3,7 +3,7 @@
 
 use std::error::Error;
 
-const INPUT: &str = include_str!("../input/day02.txt");
+const INPUT: &str = include_str!("../../inputs/day02.txt");
 
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Part one: {}", part_one(INPUT)?);

@@ -3,7 +3,7 @@
 
 use std::collections::HashSet;
 
-const INPUT: &str = include_str!("../input/day06.txt");
+const INPUT: &str = include_str!("../../inputs/day06.txt");
 
 fn main() {
     println!("Part one: {}", part_one(INPUT));
