@@ -26,55 +26,73 @@ fn part_one(input: &str) -> i64 {
         seen.insert(i);
 
         match instructions[i] {
-            Instruction::Nop(_) => (),
+            Instruction::Nop(_) => i += 1,
             Instruction::Acc(n) => {
                 acc += n;
+                i += 1;
             }
             Instruction::Jmp(n) => {
                 i = (i as i64 + n) as usize;
-                continue;
             }
         }
-
-        i += 1;
     }
 
     acc
 }
 
 fn part_two(input: &str) -> i64 {
-    let mut acc = 0;
-    let mut seen = HashSet::new();
+    let mut total = 0;
+    let mut changed = HashSet::new();
+    let mut ends = false;
     let instructions = input
         .lines()
         .map(|s| Instruction::from_str(s).unwrap())
         .collect::<Vec<Instruction>>();
 
-    let mut i = 0;
-    while i < instructions.len() {
-        let mut inst = instructions[i].clone();
-        if seen.contains(&i) {
-            inst = match inst {
-                Instruction::Nop(n) => Instruction::Jmp(n),
-                Instruction::Jmp(n) => Instruction::Nop(n),
-                _ => panic!("Hmmm"),
+    while !ends {
+        let mut acc = 0;
+        let mut seen = HashSet::new();
+        let mut has_changed = false;
+        let mut i = 0;
+        loop {
+            if seen.contains(&i) {
+                break;
             }
-        }
-        seen.insert(i);
+            seen.insert(i);
 
-        match inst {
-            Instruction::Nop(_) => (),
-            Instruction::Acc(n) => {
-                acc += n;
+            match instructions[i] {
+                Instruction::Nop(n) => {
+                    if !has_changed && !changed.contains(&i) && n != 0 {
+                        changed.insert(i);
+                        has_changed = true;
+                        i = (i as i64 + n) as usize;
+                    } else {
+                        i += 1;
+                    }
+                }
+                Instruction::Acc(n) => {
+                    acc += n;
+                    i += 1;
+                }
+                Instruction::Jmp(n) => {
+                    if !has_changed && !changed.contains(&i) {
+                        changed.insert(i);
+                        has_changed = true;
+                        i += 1;
+                    } else {
+                        i = (i as i64 + n) as usize;
+                    }
+                }
             }
-            Instruction::Jmp(n) => {
-                i = (i as i64 + n) as usize;
-                continue;
+            if i >= instructions.len() {
+                ends = true;
+                total = acc;
+                break;
             }
         }
     }
 
-    acc
+    total
 }
 
 #[derive(Debug, Clone)]
